@@ -1,0 +1,1343 @@
+
+<h2 class="sr-only">The Kalagatan Archipelago - the Lore Codex by Poseidon Bloodline.</h2>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --se: #1a6b4a;
+  --se2: #2a9d6e;
+  --se-light: #d4f5e7;
+  --ne: #8b1a1a;
+  --ne2: #c0392b;
+  --ne-light: #fde8e8;
+  --gold: #c9922a;
+  --gold-light: #fef3dc;
+  --neutral: #4a4a6a;
+  --neutral-light: #eeeef8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { font-family: 'Rajdhani', sans-serif; }
+
+.codex {
+  min-height: 600px;
+  position: relative;
+}
+
+.codex-header {
+  background: #0d0d1a;
+  color: #e8e8ff;
+  padding: 28px 32px 20px;
+  border-bottom: 2px solid #2a2a4a;
+  position: relative;
+  overflow: hidden;
+}
+
+.codex-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 30px,
+    rgba(255,255,255,0.015) 30px, rgba(255,255,255,0.015) 31px
+  );
+}
+
+.codex-header::after {
+  content: '⬡';
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 110px;
+  opacity: 0.04;
+  color: #fff;
+  line-height: 1;
+}
+
+.faction-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  border: 1px solid;
+}
+
+.badge-se { background: rgba(26,107,74,0.3); color: #5de0a0; border-color: rgba(45,200,120,0.4); }
+.badge-ne { background: rgba(139,26,26,0.3); color: #f08080; border-color: rgba(220,80,80,0.4); }
+.badge-gold { background: rgba(201,146,42,0.2); color: #e8c060; border-color: rgba(201,146,42,0.4); }
+
+.codex-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1.1;
+  position: relative;
+}
+
+.codex-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: #7878aa;
+  margin-top: 6px;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.nav-bar {
+  display: flex;
+  gap: 2px;
+  padding: 0 24px;
+  background: #111126;
+  border-bottom: 1px solid #1e1e3e;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-bar::-webkit-scrollbar { display: none; }
+
+.nav-btn {
+  padding: 10px 14px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #6666aa;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-btn:hover { color: #aaaadd; }
+.nav-btn.active { color: #c8c8ff; border-bottom-color: #6868cc; }
+
+.content-area {
+  padding: 24px 28px;
+  background: var(--color-background-primary);
+  min-height: 480px;
+}
+
+.section { display: none; }
+.section.active { display: block; }
+
+.sec-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border-tertiary);
+}
+.sec-header-icon {
+  width: 36px; height: 36px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.icon-history { background: #1a1a3a; color: #9999ff; }
+.icon-ne { background: #3a1010; color: #ff9090; }
+.icon-se { background: #0e3020; color: #60e090; }
+.icon-islands { background: #1a2a3a; color: #80c0ff; }
+.icon-military { background: #2a1a0e; color: #f0a040; }
+.icon-mystery { background: #1a0a2a; color: #c080ff; }
+.icon-defector { background: #1a2a1a; color: #80e090; }
+
+.sec-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: 1px;
+}
+.sec-sub {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 24px;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 6px;
+  bottom: 0;
+  width: 1px;
+  background: var(--color-border-tertiary);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 22px;
+  cursor: pointer;
+}
+.timeline-dot {
+  position: absolute;
+  left: -20px;
+  top: 5px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid;
+}
+.dot-gold { background: #c9922a; border-color: #e8b840; }
+.dot-se { background: #1a6b4a; border-color: #2a9d6e; }
+.dot-ne { background: #8b1a1a; border-color: #c0392b; }
+.dot-gray { background: #555; border-color: #888; }
+.dot-red { background: #c0392b; border-color: #e74c3c; }
+
+.timeline-year {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+}
+.timeline-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+.timeline-body {
+  font-family: 'Noto Serif', serif;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-top: 5px;
+  display: none;
+}
+.timeline-item.open .timeline-body { display: block; }
+.timeline-expand {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--color-text-tertiary);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+.card {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 14px 16px;
+}
+.card:hover { border-color: var(--color-border-secondary); }
+
+.card-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  margin-bottom: 6px;
+}
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+.card-body {
+  font-family: 'Noto Serif', serif;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.faction-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.faction-half {
+  padding: 18px;
+}
+.fh-se { background: rgba(26,107,74,0.06); border-right: 0.5px solid var(--color-border-tertiary); }
+.fh-ne { background: rgba(139,26,26,0.06); }
+
+.faction-name {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.fn-se { color: #1a6b4a; }
+.fn-ne { color: #8b1a1a; }
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  font-size: 12px;
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-key { color: var(--color-text-secondary); font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 0.5px; }
+.stat-val { color: var(--color-text-primary); font-weight: 600; font-size: 12px; }
+
+.island-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+.island-card {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.island-card:hover { border-color: var(--color-border-secondary); }
+.island-control {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.ctrl-se { background: rgba(26,107,74,0.12); color: #1a6b4a; }
+.ctrl-ne { background: rgba(139,26,26,0.12); color: #8b1a1a; }
+.ctrl-contested { background: rgba(201,146,42,0.12); color: #b07820; }
+.ctrl-neutral { background: rgba(80,80,120,0.12); color: #555585; }
+.island-name { font-size: 14px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 4px; }
+.island-desc { font-family: 'Noto Serif', serif; font-size: 11px; color: var(--color-text-secondary); line-height: 1.6; }
+.island-detail {
+  display: none;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 0.5px solid var(--color-border-tertiary);
+}
+.island-card.open .island-detail { display: block; }
+.island-detail p { font-family: 'Noto Serif', serif; font-size: 11px; color: var(--color-text-secondary); line-height: 1.7; margin-bottom: 6px; }
+.island-detail strong { color: var(--color-text-primary); font-family: 'Rajdhani', sans-serif; font-size: 11px; letter-spacing: 0.5px; }
+
+.incident-card {
+  border-left: 3px solid #c0392b;
+  padding: 14px 16px;
+  background: rgba(139,26,26,0.04);
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+.incident-card.green-border { border-left-color: #1a6b4a; background: rgba(26,107,74,0.04); }
+.incident-date {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 10px;
+  color: var(--color-text-tertiary);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.incident-title { font-size: 14px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 6px; }
+.incident-body {
+  font-family: 'Noto Serif', serif;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  display: none;
+}
+.incident-card.open .incident-body { display: block; }
+.incident-tag {
+  display: inline-block;
+  padding: 2px 7px;
+  background: rgba(192,57,43,0.1);
+  color: #a02020;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  margin-right: 5px;
+}
+.incident-tag.green { background: rgba(26,107,74,0.1); color: #1a6b4a; }
+
+.mystery-card {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-left: 3px solid #7c3aed;
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+.mystery-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #9966cc;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.mystery-title { font-size: 14px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 6px; }
+.mystery-body {
+  font-family: 'Noto Serif', serif;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  display: none;
+}
+.mystery-card.open .mystery-body { display: block; }
+
+.defector-card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 16px;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+.defector-header { display: flex; gap: 12px; align-items: flex-start; }
+.defector-avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 700;
+  flex-shrink: 0;
+}
+.av-ne { background: rgba(139,26,26,0.15); color: #c0392b; }
+.av-se { background: rgba(26,107,74,0.15); color: #1a6b4a; }
+.defector-name { font-size: 15px; font-weight: 700; color: var(--color-text-primary); }
+.defector-rank { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: var(--color-text-secondary); letter-spacing: 0.5px; margin-top: 2px; }
+.defector-status {
+  margin-left: auto;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.status-alive { background: rgba(26,107,74,0.12); color: #1a6b4a; }
+.status-dead { background: rgba(139,26,26,0.12); color: #8b1a1a; }
+.status-missing { background: rgba(201,146,42,0.12); color: #a07020; }
+.defector-story {
+  font-family: 'Noto Serif', serif;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 0.5px solid var(--color-border-tertiary);
+  display: none;
+}
+.defector-card.open .defector-story { display: block; }
+
+.doctrine-block {
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-md);
+  border: 0.5px solid var(--color-border-tertiary);
+}
+.doctrine-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.doctrine-tag {
+  padding: 1px 7px;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.dt-se { background: rgba(26,107,74,0.12); color: #1a6b4a; }
+.dt-ne { background: rgba(139,26,26,0.12); color: #8b1a1a; }
+.doctrine-body {
+  font-family: 'Noto Serif', serif;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+.aircraft-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+}
+.aircraft-row:last-child { border-bottom: none; }
+.aircraft-id {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  padding-top: 2px;
+  min-width: 70px;
+}
+.aircraft-name { font-size: 13px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 3px; }
+.aircraft-desc { font-family: 'Noto Serif', serif; font-size: 11px; color: var(--color-text-secondary); line-height: 1.6; }
+.aircraft-status {
+  padding: 2px 7px;
+  border-radius: 3px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.as-active { background: rgba(26,107,74,0.12); color: #1a6b4a; }
+.as-dev { background: rgba(201,146,42,0.12); color: #a07020; }
+.as-prototype { background: rgba(100,80,160,0.12); color: #6050a0; }
+.as-lost { background: rgba(139,26,26,0.12); color: #8b1a1a; }
+
+.quote-block {
+  border-left: 2px solid var(--color-border-secondary);
+  padding: 8px 14px;
+  margin: 10px 0;
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+.toggle-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 9px;
+  color: var(--color-text-tertiary);
+  letter-spacing: 1px;
+  text-align: right;
+  margin-bottom: 14px;
+}
+
+p.body-text {
+  font-family: 'Noto Serif', serif;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.75;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 560px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .faction-strip { grid-template-columns: 1fr; }
+  .fh-se { border-right: none; border-bottom: 0.5px solid var(--color-border-tertiary); }
+}
+</style>
+
+<div class="codex">
+
+<div class="codex-header">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+    <span class="faction-badge badge-se">▸ SASDF — Southeast Air Self Defense Force</span>
+    <span class="faction-badge badge-ne">▸ NEASDF — Northeast Air Force</span>
+    <span class="faction-badge badge-gold">◈ RESTRICTED — CLASSIFICATION LEVEL ALPHA</span>
+  </div>
+  <div class="codex-title">THE KALAGATAN CODEX</div>
+  <div class="codex-sub">// KALAGATAN ARCHIPELAGO · DISPUTED TERRITORIAL ZONES · CIRCA 2003–PRESENT</div>
+</div>
+
+<div class="nav-bar">
+  <button class="nav-btn active" onclick="showSection('overview')">Overview</button>
+  <button class="nav-btn" onclick="showSection('history')">Timeline</button>
+  <button class="nav-btn" onclick="showSection('factions')">Factions</button>
+  <button class="nav-btn" onclick="showSection('islands')">Islands</button>
+  <button class="nav-btn" onclick="showSection('military')">Military</button>
+  <button class="nav-btn" onclick="showSection('aircraft')">Aircraft</button>
+  <button class="nav-btn" onclick="showSection('incidents')">Incidents</button>
+  <button class="nav-btn" onclick="showSection('mysteries')">Conspiracies</button>
+  <button class="nav-btn" onclick="showSection('defectors')">Defectors</button>
+</div>
+
+<div class="content-area">
+
+<!-- OVERVIEW -->
+<div class="section active" id="sec-overview">
+  <div class="sec-header">
+    <div class="sec-header-icon icon-history">⬡</div>
+    <div>
+      <div class="sec-title">THE KALAGATAN ARCHIPELAGO</div>
+      <div class="sec-sub">World Overview — The Private Sovereign</div>
+    </div>
+  </div>
+
+  <p class="body-text">The Kalagatan Archipelago is a chain of fourteen main islands and over sixty minor islets scattered across the Sibuyan-adjacent seas of the Western Pacific. No recognized nation-state has ever held sovereignty over Kalagatan — for over a century it has been administered, developed, and defended by a single private entity: <strong>The Poseidon Bloodline (PB)</strong>, a stateless group founded in 1887 by a coalition of Dutch, Hokkien Chinese, and Japanese merchant families who purchased the islands from a collapsing colonial land grant.</p>
+
+  <p class="body-text">The Bloodline operated as a genuine private government — minting its own scrip currency, the <em>Kalagat Yen</em>, maintaining a customs service, and running militias for internal order. Crucially, it was internationally tolerated through a complex web of trade agreements rather than diplomatic recognition. This legal gray zone is the root of every conflict that followed.</p>
+
+  <p class="body-text">By the late 1990s, the Bloodline's governing council had fractured irreparably into two ideological blocs. A violent succession crisis in 2001 saw the Archipelago physically divided — the southern and central islands seized by the market-liberal faction, the northern islands by the socialist-authoritarian faction. Both sides declared themselves the legitimate successor to the Bloodline and established paramilitary air forces as their primary deterrents, given the archipelago's inherently maritime geography.</p>
+
+  <div class="faction-strip">
+    <div class="faction-half fh-se">
+  <div class="faction-name fn-se">SEASDF</div>
+  <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px">
+    <img src="SEASDF.png" style="width:48px; height:48px; object-fit:cover; border-radius:6px;">
+    <div class="card-label">Southeast Air Self-Defense Force</div>
+  </div>
+      <div class="stat-row"><span class="stat-key">Capital</span><span class="stat-val">TBD</span></div>
+      <div class="stat-row"><span class="stat-key">Ideology</span><span class="stat-val">Market Republicanism / Liberal Coalition</span></div>
+      <div class="stat-row"><span class="stat-key">Islands Held</span><span class="stat-val">8 of 14 main islands</span></div>
+      <div class="stat-row"><span class="stat-key">Air Assets</span><span class="stat-val">~340 aircraft (est. 2005)</span></div>
+      <div class="stat-row"><span class="stat-key">Internal Tensions</span><span class="stat-val">Democrats vs Anarcho-Libertarians</span></div>
+    </div>
+    <div class="faction-half fh-ne">
+  <div class="faction-name fn-ne">NEAF</div>
+  <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px">
+    <img src="NEAF.png" style="width:48px; height:48px; object-fit:cover; border-radius:6px;">
+    <div class="card-label">Northeast Air Force</div>
+  </div>
+      <div class="stat-row"><span class="stat-key">Capital</span><span class="stat-val">TBD</span></div>
+      <div class="stat-row"><span class="stat-key">Ideology</span><span class="stat-val">Centralized Socialist Federation</span></div>
+      <div class="stat-row"><span class="stat-key">Islands Held</span><span class="stat-val">6 of 14 main islands</span></div>
+      <div class="stat-row"><span class="stat-key">Air Assets</span><span class="stat-val">~280 aircraft (est. 2005)</span></div>
+      <div class="stat-row"><span class="stat-key">Internal Tensions</span><span class="stat-val">Hardliners vs Reform Socialists</span></div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-label">Geographic Context</div>
+      <div class="card-title">The Sea Factor</div>
+      <div class="card-body">Every island is surrounded by 40–120km of open water. Air superiority is not a strategic advantage — it is an existential prerequisite. Whoever controls the skies controls supply lines, reinforcement, and the psychological coherence of each island's population.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Founding Entity</div>
+      <div class="card-title">The KDC Legacy</div>
+      <div class="card-body">The Kalagatan Development Consortium's founding charter still defines both factions' legal frameworks. Both sides claim to be the legitimate KDC successor government, creating a permanent legitimacy war fought through international trade partners and proxy diplomacy.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Conflict Nature</div>
+      <div class="card-title">Cold-Hot War</div>
+      <div class="card-body">The conflict operates in cycles: extended cold-war periods of aerial harassment, economic blockades, and propaganda leaflet drops, punctuated by intense "hot" flash-wars lasting days or weeks, followed by fragile armistices. No peace treaty has ever been signed.</div>
+    </div>
+  </div>
+</div>
+
+<!-- HISTORY TIMELINE -->
+<div class="section" id="sec-history">
+  <div class="sec-header">
+    <div class="sec-header-icon icon-history">⏱</div>
+    <div>
+      <div class="sec-title">HISTORICAL TIMELINE</div>
+      <div class="sec-sub">From Consortium to Conflict — Click Events to Expand</div>
+    </div>
+  </div>
+  <div class="toggle-hint">▼ CLICK ANY EVENT TO EXPAND FULL ACCOUNT</div>
+
+  <div class="timeline">
+    <div class="timeline-item" onclick="toggleItem(this)">
+      <div class="timeline-dot dot-gold"></div>
+      <div class="timeline-year">1887</div>
+      <div class="timeline-title">Founding of the Kalagatan Development Consortium</div>
+      <div class="timeline-expand">▾ EXPAND</div>
+      <div class="timeline-body">Three merchant dynasties — the van der Berg family (Dutch), the Huang clan (Hokkien), and the Maglaya family (Tagalog) — pool capital after purchasing a land grant from the collapsing remnants of a Spanish colonial charter. The Consortium issues its own currency, the Kalagat Peso Biru, and establishes a governing council structured like a joint-stock board of directors. Crucially, no nation formally recognizes the KDC as a state, but several — including the Netherlands, the Qing Dynasty's successor administration, and the nascent Philippine republic — sign bilateral trade agreements that effectively treat it as one. This creates the archipelago's defining legal character: real power without recognized sovereignty.</div>
+    </div>
+
+    <div class="timeline-item" onclick="toggleItem(this)">
+      <div class="timeline-dot dot-gray"></div>
+      <div class="timeline-year">1942–1945</div>
+      <div class="timeline-title">The Japanese Occupation and the Silent Resistance</div>
+      <div class="timeline-expand">▾ EXPAND</div>
+      <div class="timeline-body">Imperial Japan occupies all fourteen islands. The KDC's physical infrastructure — roads, airstrips, port facilities — is expanded dramatically by Japanese military engineers for forward staging purposes. KDC council members who cooperated with Japan became known as the "Accommodation Faction," a label that would poison postwar politics for decades. A Kalagatan guerrilla network called the <em>Agos</em> (Current) fought a brutal underground war. When Japan surrendered, the Agos leaders' children would form the ideological spine of the future socialist faction — convinced that only collective sacrifice, not market neutrality, saved the islands.</div>
+    </div>
+
+    <div class="timeline-item" onclick="toggleItem(this)">
+      <div class="timeline-dot dot-gray"></div>
+      <div class="timeline-year">1956–1968</div>
+      <div class="timeline-title">The Modernization Period and the KDC Air Service</div>
+      <div class="timeline-expand">▾ EXPAND</div>
+      <div class="timeline-body">Under Chairman Emilio van der Berg-Maglaya III, the KDC establishes its first proper aerial security force — the <em>Kalagatan Air Service (KAS)</em> — initially operating surplus American and British aircraft purchased through intermediary brokers. The islands experience a genuine economic boom: fishing cooperatives scale up, a small electronics assembly industry attracts Taiwanese investment, and the capital, Lungsod Kalaya, becomes a minor regional free port. Politically, two factions emerge in the governing council: the <em>Kalayaan Bloc</em> (freedom bloc) favoring deeper market liberalization and eventual democratic election of council members, and the <em>Bayanihan Bloc</em> (collective unity bloc) pushing for socialized resource control and a planned development model.</div>
+    </div>
+
+    <div class="timeline-item" onclick="toggleItem(this)">
+      <div class="timeline-dot dot-gray"></div>
+      <div class="timeline-year">1979</div>
+      <div class="timeline-title">The Doctrine Wars — Ideological Split Hardens</div>
+      <div class="timeline-expand">▾ EXPAND</div>
+      <div class="timeline-body">A catastrophic fishing rights dispute with a neighboring nation exposes the KDC's lack of a unified strategic doctrine. The Kalayaan Bloc wants to negotiate bilateral maritime agreements; the Bayanihan Bloc wants to militarize the outer islands and build a self-sufficient defense perimeter. The council deadlocks for eleven months. During this period, Bayanihan faction officers — particularly Air Service wing commanders based on the northern islands — begin quietly receiving technical literature from Soviet-aligned contacts. The Kalayaan faction simultaneously deepens ties with Taiwanese and South Korean aerospace firms. The KAS is effectively already two air forces wearing the same roundel.</div>
+    </div>
+
+    <div class="timeline-item" onclick="toggleItem(this)">
+      <div class="timeline-dot dot-gold"></div>
+      <div class="timeline-year">1997–1999</div>
+      <div class="timeline-title">The Asian Financial Crisis and the Council's Collapse</div>
+      <div class="timeline-expand">▾ EXPAND</div>
+      <div class="timeline-body">The 1997 Asian financial crisis destroys 40% of the KDC's trade revenue in fourteen months. Emergency measures pit the two blocs against each other viciously: the Kalayaan Bloc pushes IMF-aligned austerity and foreign investment liberalization; the Bayanihan Bloc demands nationalization of key industries and rationing. Both sides begin equipping their affiliated Air Service wings with faction-loyal personnel in key positions. Senior KAS officers are quietly transferred to either northern or southern commands based on political loyalty assessments. Both factions begin secretly stockpiling munitions through shadow procurement networks. Council meetings devolve into shouting sessions. In November 1999, the Bayanihan Bloc's chairman, Secretary-General Andres Reyes-Huang, delivers a speech calling Kalayaan-linked businesses "parasites on the common body." The Kalayaan Bloc walks out. The council never meets in full session again.</div>
+    </div>
+
+    <div class="timeline-item" onclick="toggleItem(this)">
+      <div class="timeline-dot dot-red"></div>
+      <div class="timeline-year">March 2001</div>
+      <div class="timeline-title">THE DIVISION — The Twelve-Day War</div>
+      <div class="timeline-expand">▾ EXPAND</div>
+      <div class="timeline-body">The assassination of Kalayaan Bloc council member Director Sofía Maglaya-Cruz — killed by a car bomb outside her Lungsod Kalaya residence — triggers the catastrophe both sides had been preparing for. Within 48 hours, Bayanihan-aligned Air Service wings on the northern islands declare their formal separation from the KDC, forming the <em>Northeast Air Self-Defense Force (NEASDF)</em>. Southern and central island commands consolidate as the <em>Southeast Air Self-Defense Force (SASDF)</em>. Twelve days of intense aerial and amphibious combat establish the rough territorial boundaries that persist today. The Twelve-Day War's most brutal engagement, the Battle of the Bantay Strait, sees both sides lose over 40 aircraft in three days. A Chinese-mediated armistice ends the open war, but no peace terms are agreed upon — the armistice is simply a mutual acknowledgment of exhaustion.</div>
+    </div>
+
+    <div class="timeline-item" onclick="toggleItem(this)">
+      <div class="timeline-dot dot-ne"></div>
+      <div class="timeline-year">2002–2005</div>
+      <div class="timeline-title">The NEASDF Consolidation and First Purges</div>
+      <div class="timeline-expand">▾ EXPAND</div>
+      <div class="timeline-body">Secretary-General Reyes-Huang, now the NEASDF's supreme authority, launches the <em>Purification Campaign</em> — a systematic removal of suspected Kalayaan sympathizers, "bourgeois deviationists," and reform-socialist dissidents from all levels of the NEASDF command structure. Over 400 military officers are imprisoned; an unknown number are executed. The NEASDF restructures its air forces along Marxist-Leninist command principles, with political commissars attached to every squadron. Aircraft crews must attend mandatory ideological training twice weekly. Simultaneously, the NEASDF begins a covert campaign of cross-border harassment: overflights of SASDF-controlled islands, interception of merchant vessels, and the first use of unmarked aircraft for deniable strike missions against SASDF infrastructure.</div>
+    </div>
+
+    <div class="timeline-item" onclick="toggleItem(this)">
+      <div class="timeline-dot dot-se"></div>
+      <div class="timeline-year">2003</div>
+      <div class="timeline-title">SASDF Internal Crisis — The Anarchist Communes</div>
+      <div class="timeline-expand">▾ EXPAND</div>
+      <div class="timeline-body">The SASDF's own internal ideological fault lines explode when three smaller islands — Isla Bukas, Isla Ginhawa, and Isla Sarili — declare themselves self-governing anarchist communes, refusing to acknowledge SASDF central authority while also defending against NEASDF aggression. The communes operate their own small air wings of light aircraft and argue that the SASDF's "republic" is merely KDC capitalism with a democratic paint job. The resulting political crisis within the SASDF leadership council consumes two years of energy. The eventual compromise — the <em>Coalition Compact of 2004</em> — grants the communes nominal autonomy in exchange for military cooperation, creating a messy but functional SASDF that is not a unified state but a genuine coalition of competing political visions.</div>
+    </div>
+
+    <div class="timeline-item" onclick="toggleItem(this)">
+      <div class="timeline-dot dot-red"></div>
+      <div class="timeline-year">2004</div>
+      <div class="timeline-title">The Palengke Bombing — NEASDF's First Major Terror Strike</div>
+      <div class="timeline-expand">▾ EXPAND</div>
+      <div class="timeline-body">A market complex in Lungsod Kalaya is destroyed by a coordinated bombing attributed to the NEASDF's clandestine directorate, the <em>Anino Bureau</em> (Shadow Bureau). 73 civilians killed, 200+ wounded. The Anino Bureau operates through sleeper cells established prior to the Division, using former KDC employees with northeastern sympathies. The Palengke Bombing transforms regional public opinion: moderate SASDF citizens who had previously favored negotiation with the NEASDF harden into war hawks. The SASDF launches its first formal retaliatory air campaign, Operation Bagyo (Typhoon), targeting NEASDF airfields. The bombing also radicalizes a generation of SASDF youth — many of whom enlist in the air force — and accelerates the SASDF's alliance-building with outside aerospace suppliers.</div>
+    </div>
+
+    <div class="timeline-item" onclick="toggleItem(this)">
+      <div class="timeline-dot dot-gold"></div>
+      <div class="timeline-year">2006</div>
+      <div class="timeline-title">The Proxy War Deepens — Outside Powers Intervene</div>
+      <div class="timeline-expand">▾ EXPAND</div>
+      <div class="timeline-body">International actors that had previously observed the Kalagatan conflict from a cautious distance begin taking sides. A major regional power quietly supplies the NEASDF with surplus fighter aircraft and radar systems, routed through a chain of shell companies. The SASDF — legally unable to receive formal military aid due to its unrecognized-state status — develops a network of private military contractors and aerospace brokers. One firm, Meridian Aerospace Partners, becomes the SASDF's primary procurement channel for used military aircraft, spare parts, and avionics upgrades. A separate external intelligence service establishes an observation station on the neutral island of Isla Kahit, feeding real-time satellite reconnaissance to the SASDF in exchange for port access rights — a deal that remains classified to both populations.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FACTIONS -->
+<div class="section" id="sec-factions">
+  <div class="sec-header">
+    <div class="sec-header-icon icon-se">◈</div>
+    <div>
+      <div class="sec-title">FACTION PROFILES</div>
+      <div class="sec-sub">Internal Ideologies, Power Structures, Conflicts</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:20px">
+    <div style="font-size:16px;font-weight:700;color:#1a6b4a;margin-bottom:12px;letter-spacing:0.5px">SASDF — THE SOUTHEAST COALITION</div>
+    <p class="body-text">The SASDF is not a state. It is a coalition — which is both its greatest strength and its most exploitable weakness. Eight islands with eight distinct political cultures have agreed, under the Coalition Compact, to pool their air defense capabilities while maintaining local governance autonomy. The result is a fighting force that is genuinely democratic but functionally incoherent at the command level.</p>
+    <div class="grid-2" style="margin-bottom:14px">
+      <div class="card">
+        <div class="card-label">Primary Faction</div>
+        <div class="card-title">The Federal Democrats (Pederal)</div>
+        <div class="card-body">The largest bloc. Wants a formal state with constitutional government, universal suffrage, and regulated markets. They believe the KDC's stateless heritage is an asset to be formalized, not abolished. Dominant on Isla Malaya and Isla Dagat. Internally divided between pro-trade moderates and protectionist nationalists.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Secondary Faction</div>
+        <div class="card-title">The Anarchist Communes (Komunidad)</div>
+        <div class="card-body">Control three smaller islands under the Coalition Compact. Reject state authority but support mutual aid defense. Their air wings are technically excellent but refuse central command structures — commune pilots fight cooperatively but answer to no officer. A constant friction point with Federal Democrat commanders who need unified tactical control.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Tertiary Faction</div>
+        <div class="card-title">The Reform Socialists (Bagong Kaliwang)</div>
+        <div class="card-body">Ironically, the SASDF contains its own socialist faction — people who fled the NEASDF's authoritarian turn but still believe in collective resource management. They are the ideological bridge between the Coalition and potential NEASDF defectors. The NEASDF calls them "traitors to the working class." The Federal Democrats distrust their long-term loyalties.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Business Faction</div>
+        <div class="card-title">The Free Traders (Kalakalan Bloc)</div>
+        <div class="card-body">Descendants of the original KDC merchant families. Fund much of the SASDF's procurement through private capital. Wield enormous informal power despite holding no formal command positions. Their agenda: permanent SASDF victory guarantees their property rights. Accused by Komunidad of treating the war as a business investment.</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div style="font-size:16px;font-weight:700;color:#8b1a1a;margin-bottom:12px;letter-spacing:0.5px">NEASDF — THE NORTHEAST FEDERATION</div>
+    <p class="body-text">The NEASDF is structured as a single-party military-state apparatus. The <em>Samahan ng Bayan</em> (People's Assembly) is the nominal legislature but all real power flows from the <em>Central Defense Committee</em>, currently chaired by Commander-General Benedicto Reyes-Huang (son of the original Secretary-General). The NEASDF controls its islands through a network of political commissars embedded in every civilian and military institution.</p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-label">Ruling Faction</div>
+        <div class="card-title">Hardline Collectivists (Kolektibong Bakal)</div>
+        <div class="card-body">The current ruling bloc. Believe the KDC's division was a capitalist coup attempt that must be reversed by force. Maintain the Anino Bureau's covert operations, authorize cross-border strikes, and vigorously suppress internal dissent. Their ideology is a syncretic blend of Marxism-Leninism, Filipino nationalist socialism, and a near-cult veneration of the Agos resistance movement.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Internal Opposition</div>
+        <div class="card-title">Reform Socialists (Repormista)</div>
+        <div class="card-body">A suppressed faction that believes the NEASDF's aggressive posture is destroying any hope of peaceful reunification. Many are veteran pilots and engineers who privately admire the SASDF's technical achievements. Several have become defectors. Those who remain operate in a dangerous semi-underground, using coded language in official forums to signal their positions.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Military Faction</div>
+        <div class="card-title">The Sky Officers (Mga Opisyal ng Langit)</div>
+        <div class="card-body">Senior NEASDF air commanders who are ideologically flexible but institutionally loyal. They care primarily about air force operational effectiveness and will support whoever — hardliners or reformists — best serves that goal. Several have formed a quiet professional fraternity that communicates across factional lines, alarming the Kolektibong Bakal leadership.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Underground</div>
+        <div class="card-title">The Salamin Network (Mirror Network)</div>
+        <div class="card-body">A suspected underground resistance operating within NEASDF-controlled islands. NEASDF security services have been unable to locate its leadership despite multiple purges. The Salamin Network passes intelligence to the SASDF through elaborate cutout networks. Whether it is a genuine resistance or a SASDF intelligence operation is actively debated within SASDF command.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ISLANDS -->
+<div class="section" id="sec-islands">
+  <div class="sec-header">
+    <div class="sec-header-icon icon-islands">⬢</div>
+    <div>
+      <div class="sec-title">ISLAND-BY-ISLAND REGISTRY</div>
+      <div class="sec-sub">14 Main Islands — Click for Full History</div>
+    </div>
+  </div>
+  <div class="toggle-hint">▼ CLICK ANY ISLAND FOR DETAILED HISTORY</div>
+
+  <div class="island-grid">
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-se">SASDF CONTROLLED</div>
+      <div class="island-name">Isla Malaya</div>
+      <div class="island-desc">SASDF capital island. Population ~280,000. Primary air base: Himpapawid Prime.</div>
+      <div class="island-detail">
+        <p><strong>Historical Role:</strong> The KDC's original administrative center. The van der Berg family maintained their primary residence here from 1887–1980. The island's natural deep-water harbor made it the archipelago's commercial hub.</p>
+        <p><strong>During the Division:</strong> Declared for the Kalayaan Bloc within 6 hours of the Twelve-Day War's outbreak. NEASDF bomber attack on Day 3 destroyed the KDC's central archives building — suspected to have been deliberate destruction of ownership documentation the NEASDF feared would legitimize SASDF claims.</p>
+        <p><strong>Current Status:</strong> Heavily fortified. Himpapawid Prime operates three runways and maintains a permanent combat air patrol rotation. The island's civilian population is the most politically active in the archipelago — protests against SASDF command are a regular occurrence, demonstrating the coalition's democratic nature but complicating operational security.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-ne">NEASDF CONTROLLED</div>
+      <div class="island-name">Isla Mataas</div>
+      <div class="island-desc">NEASDF capital island. Population ~180,000. Highest elevation in archipelago — 2,100m peak.</div>
+      <div class="island-detail">
+        <p><strong>Historical Role:</strong> Always the most geographically isolated main island. The Agos resistance movement was headquartered here during the Japanese occupation, giving it enormous symbolic weight for the socialist faction. The island's mountain terrain made it nearly impregnable during the Twelve-Day War.</p>
+        <p><strong>Current Status:</strong> The NEASDF's political and ideological heart. The Supreme Command bunker is built into the mountain's eastern face at 1,400m elevation, hardened against aerial bombardment. All NEASDF political commissars receive their training here. The population lives under severe information controls — foreign radio is jammed, and travel between islands requires internal passports.</p>
+        <p><strong>Secret:</strong> Underground hydroponics facilities and a buried fuel reserve estimated at 18 months of wartime consumption suggest the NEASDF has prepared Isla Mataas as a last-resort redoubt.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-se">SASDF CONTROLLED</div>
+      <div class="island-name">Isla Dagat</div>
+      <div class="island-desc">SASDF's primary naval aviation island. Largest reef system in archipelago. Population ~120,000.</div>
+      <div class="island-detail">
+        <p><strong>Historical Role:</strong> A fishing community island that the KDC developed as a secondary trading post. The reef system generates significant tourism revenue that funds a portion of SASDF operations.</p>
+        <p><strong>Military Significance:</strong> Hosts the SASDF's only carrier-capable runway (extended to 3,200m on a narrow coastal flat). The Maritime Patrol Aviation wing operates exclusively from here, providing the SASDF's critical anti-submarine and surface surveillance capability — essential for protecting inter-island supply convoys from NEASDF submarine harassment.</p>
+        <p><strong>Political Character:</strong> Strongly Federal Democrat. Dagat's fishing cooperatives — many descended from KDC-era collective agreements — paradoxically embrace market liberalism while maintaining communal fishing rights structures, making the island's politics genuinely unique in the coalition.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-ne">NEASDF CONTROLLED</div>
+      <div class="island-name">Isla Anino</div>
+      <div class="island-desc">NEASDF intelligence hub. Civilian population restricted. Estimated 40,000 military/civilian personnel.</div>
+      <div class="island-detail">
+        <p><strong>Historical Role:</strong> A relatively undeveloped island during the KDC era, used primarily for timber extraction. Its deep forest cover and remoteness made it ideal for covert activity.</p>
+        <p><strong>Current Status:</strong> Home to the Anino Bureau's primary training facility. SASDF reconnaissance assets have identified what appear to be signals intelligence arrays and a hardened communications center in the island's interior. External observers are entirely prohibited — even NEASDF citizens from other islands cannot visit without special authorization.</p>
+        <p><strong>Dark History:</strong> The island is where NEASDF political prisoners are believed to be held. A 2003 defector, Wing Commander Alipio Bautista, testified to the existence of an underground detention facility capable of holding 2,000 individuals. The NEASDF denies its existence.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-se">SASDF CONTROLLED</div>
+      <div class="island-name">Isla Bukas</div>
+      <div class="island-desc">Anarchist Commune. Population ~35,000. Formally part of SASDF coalition but self-governing.</div>
+      <div class="island-detail">
+        <p><strong>Political Structure:</strong> Governed by rotating councils with no permanent leadership. Every adult resident participates in island defense decisions through direct assembly. The military wing — the Bukas Air Militia — operates 14 light aircraft and 6 armed trainers, maintained collectively by all pilots who also serve as mechanics.</p>
+        <p><strong>SASDF Relationship:</strong> Deeply fractious. The Coalition Compact grants Bukas autonomy but the SASDF frequently chafes at coordinating with a wing that refuses to accept tactical orders from outside commanders. In the 2004 Typhoon offensive, Bukas Militia aircraft showed up to the correct engagement zone but independently determined their own attack profiles, causing near-midair collisions with SASDF fighters.</p>
+        <p><strong>Cultural Identity:</strong> Isla Bukas maintains the most vibrant civilian cultural life in the archipelago — music, art, and political philosophy flourish here. NEASDF propaganda portrays it as a den of decadence; SASDF conservatives view it as a strategic liability.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-contested">CONTESTED</div>
+      <div class="island-name">Isla Bantay</div>
+      <div class="island-desc">Central island straddling the division line. Has changed hands four times. Population ~65,000 — divided.</div>
+      <div class="island-detail">
+        <p><strong>Strategic Importance:</strong> Isla Bantay sits at the geographic center of the archipelago, within strike range of nearly every other main island. Whoever controls its airfield controls the strategic center of gravity. This makes it permanently contested — no faction can allow the other to hold it long-term.</p>
+        <p><strong>The Divided City:</strong> The island's capital, Bantagat City, is physically divided by a fortified checkpoint line running through its center. Northern districts are administered by NEASDF commissars; southern districts by a SASDF civil administrator. Families are separated. The city's central market — formerly the most prosperous in the archipelago — now functions as a tense, heavily monitored cross-line trading point.</p>
+        <p><strong>The Bantay Massacre (2003):</strong> NEASDF security forces executed 34 civilians in the northern district suspected of passing information to the SASDF. The event is commemorated annually by SASDF citizens and is central to the SASDF's moral justification for continued resistance.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-ne">NEASDF CONTROLLED</div>
+      <div class="island-name">Isla Bakal</div>
+      <div class="island-desc">NEASDF heavy industry island. Iron ore deposits. Population ~90,000. Forced-labor reports alleged.</div>
+      <div class="island-detail">
+        <p><strong>Economic Role:</strong> Isla Bakal's iron ore deposits are the NEASDF's most significant natural resource advantage. The ore is processed into structural steel, critical for airframe manufacturing and fortification construction. The NEASDF's aerospace self-sufficiency program is entirely dependent on Bakal's output.</p>
+        <p><strong>Labor Conditions:</strong> Multiple defector testimonies and radio intercepts suggest that a significant portion of the island's mining workforce consists of political prisoners from other NEASDF islands — individuals from the Purification Campaign's prison system assigned to the mines as "productive re-education." The NEASDF categorically denies this.</p>
+        <p><strong>SASDF Target Priority:</strong> Isla Bakal's processing facilities are the SASDF's highest-value strategic target. Multiple strike plans exist; all have been abandoned due to projected civilian casualties. The Komunidad commune pilots have argued for a precision strike; Federal Democrat commanders have blocked it for diplomatic reasons related to external power relationships.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-se">SASDF CONTROLLED</div>
+      <div class="island-name">Isla Ginhawa</div>
+      <div class="island-desc">Anarchist Commune. Medical / humanitarian hub. Population ~28,000. Red cross designation disputed.</div>
+      <div class="island-detail">
+        <p><strong>Character:</strong> The most pacifist of the anarchist communes. Isla Ginhawa's community has declared itself a humanitarian sanctuary and maintains a civilian hospital that treats wounded from both sides — a practice that deeply antagonizes the SASDF's hardline Federal Democrat commanders but has been protected by international humanitarian advocacy.</p>
+        <p><strong>NEASDF Attitude:</strong> The NEASDF has twice overflown Isla Ginhawa with armed aircraft without attacking, behavior interpreted as deliberate psychological pressure. In 2005, an NEASDF aircraft dropped propaganda leaflets over the island's hospital compound — a technical violation of the armistice's humanitarian protection clauses.</p>
+        <p><strong>Conspiracy:</strong> A persistent rumor within SASDF intelligence suggests that the NEASDF deliberately preserves Isla Ginhawa as a covert communication conduit — that agents within its hospital staff pass information northward under the cover of medical neutrality.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-ne">NEASDF CONTROLLED</div>
+      <div class="island-name">Isla Gabay</div>
+      <div class="island-desc">NEASDF northern radar and early warning network hub. Population ~15,000. Heavily militarized.</div>
+      <div class="island-detail">
+        <p><strong>Strategic Role:</strong> The apex of the NEASDF's northern air defense system. Isla Gabay hosts the primary long-range radar array that provides the NEASDF's early warning coverage against SASDF strikes. Taking it offline would blind the NEASDF's northern air defense network for hours.</p>
+        <p><strong>SASDF Operations:</strong> Three separate SASDF electronic warfare operations have targeted Isla Gabay's radar systems with mixed results. The island's radar arrays have been hardened and redundant systems added after each incident. NEASDF engineers have demonstrated impressive resilience in restoring capability rapidly.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-se">SASDF CONTROLLED</div>
+      <div class="island-name">Isla Sarili</div>
+      <div class="island-desc">Anarchist Commune. Smallest of the three. Population ~12,000. Self-sufficient agricultural commune.</div>
+      <div class="island-detail">
+        <p><strong>Character:</strong> Isla Sarili is the most isolated of the communes and the most internally cohesive. Its 12,000 residents operate a genuinely self-sufficient economy based on intensive agriculture and small-scale manufacturing. The island maintains only 4 armed aircraft but an unusually robust anti-aircraft gun network — every fishing boat doubles as a patrol vessel with a deck gun.</p>
+        <p><strong>Political Philosophy:</strong> The Sarili commune has developed its own distinct political theory — a synthesis of Kalagatan traditional governance structures with anarcho-communist theory, published in a journal called <em>Dagat at Langit</em> (Sea and Sky) that circulates across the archipelago and has become influential beyond Kalagatan in regional anarchist networks.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-ne">NEASDF CONTROLLED</div>
+      <div class="island-name">Isla Dilim</div>
+      <div class="island-desc">NEASDF psychological operations and propaganda center. Population ~22,000. Media blackout enforced.</div>
+      <div class="island-detail">
+        <p><strong>Function:</strong> The NEASDF's propaganda apparatus is headquartered here — radio transmitters, printing facilities for leaflets, and what is believed to be a television production studio that broadcasts NEASDF state media across the archipelago. SASDF jamming operations versus Isla Dilim's broadcast infrastructure is a constant low-level electronic warfare battle.</p>
+        <p><strong>Civilian Life:</strong> Residents of Isla Dilim are among the most heavily indoctrinated in the NEASDF's territories. Multiple defectors have described childhood education that explicitly identifies SASDF leaders by name as enemies of the Kalagatan people. The island produces a disproportionate share of NEASDF political commissars — its indoctrination program is effectively a pipeline to the commissar training schools on Isla Mataas.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-se">SASDF CONTROLLED</div>
+      <div class="island-name">Isla Alon</div>
+      <div class="island-desc">SASDF southern outer island. Fuel depot and maritime patrol forward base. Population ~45,000.</div>
+      <div class="island-detail">
+        <p><strong>Strategic Role:</strong> The southernmost SASDF-held island, positioned at the outer edge of the archipelago's maritime security perimeter. Isla Alon's fuel depot complex is the SASDF's longest-range operational refueling point, enabling extended maritime patrol operations into the open ocean.</p>
+        <p><strong>The Alon Incident (2005):</strong> An unmarked NEASDF aircraft — later identified by engine acoustic signature analysis as a modified light bomber — struck Isla Alon's fuel depot in a night attack. The NEASDF denied involvement. The strike destroyed 30% of the SASDF's southern fuel reserve and killed 7 depot workers. The SASDF retaliated with a strike on Isla Gabay's radar infrastructure. Both governments publicly blamed each other. The international community called for an investigation that never materialized.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-neutral">NEUTRAL / KDC RELIC</div>
+      <div class="island-name">Isla Kahit</div>
+      <div class="island-desc">Disputed status. Small population ~3,000. Multiple external observation posts present. Complex political status.</div>
+      <div class="island-detail">
+        <p><strong>Unique Status:</strong> Isla Kahit was explicitly excluded from both factions' territorial claims during the 2001 armistice — neither side could agree on its disposition. It exists in a genuine legal void: no KDC successor controls it, no nation-state claims it, and its small indigenous population governs itself through a traditional council structure that predates the KDC itself.</p>
+        <p><strong>Foreign Presence:</strong> This legal ambiguity has made Isla Kahit a de facto international observation point. At least three external intelligence services are believed to maintain discreet observation facilities on the island under various commercial covers. The SASDF receives satellite reconnaissance data through one such facility. The NEASDF is believed to use the island as a dead drop for communications with external sympathizers — despite officially condemning the foreign presence there.</p>
+      </div>
+    </div>
+
+    <div class="island-card" onclick="toggleItem(this)">
+      <div class="island-control ctrl-se">SASDF CONTROLLED</div>
+      <div class="island-name">Isla Pag-asa</div>
+      <div class="island-desc">SASDF's newest defended island. Reoccupied 2004. Population ~18,000. Symbol of SASDF resilience.</div>
+      <div class="island-detail">
+        <p><strong>History:</strong> Isla Pag-asa (Hope Island) was briefly seized by NEASDF paratroopers in the Twelve-Day War but retaken by SASDF forces on Day 10 in the only successful amphibious counterattack of the conflict. The island is the SASDF's most powerful propaganda symbol — its recapture is celebrated annually as Liberation Day across SASDF territory.</p>
+        <p><strong>Current Status:</strong> The SASDF has invested heavily in Pag-asa's air defenses precisely because of its symbolic importance — NEASDF strategic planners know that a successful strike on it would be devastating to SASDF morale. The island now hosts a redundant early warning radar system and a hardened underground shelter network capable of protecting a significant civilian population from aerial bombardment.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MILITARY DOCTRINE -->
+<div class="section" id="sec-military">
+  <div class="sec-header">
+    <div class="sec-header-icon icon-military">✈</div>
+    <div>
+      <div class="sec-title">MILITARY DOCTRINE & STRATEGY</div>
+      <div class="sec-sub">Air Doctrine, Command Structures, Strategic Principles</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:20px">
+    <div style="font-size:14px;font-weight:700;color:#1a6b4a;margin-bottom:12px;letter-spacing:1px;text-transform:uppercase">SASDF Doctrine — "Kalasag" (Shield) Framework</div>
+
+    <div class="doctrine-block">
+      <div class="doctrine-title"><span class="doctrine-tag dt-se">CORE DOCTRINE</span> Distributed Resilience</div>
+      <div class="doctrine-body">The SASDF cannot afford to lose any single island's air capability and have the coalition collapse. Doctrine emphasizes redundancy over concentration. Each island maintains an independent air defense capability capable of operating in isolation from the coalition network. This is expensive and creates command friction but ensures no single NEASDF strike can decapitate the entire defense structure. Pilots are cross-trained on multiple aircraft types; ground crews can maintain any SASDF aircraft type regardless of their home base.</div>
+    </div>
+
+    <div class="doctrine-block">
+      <div class="doctrine-title"><span class="doctrine-tag dt-se">AIR PHILOSOPHY</span> Defensive Superiority / Selective Offense</div>
+      <div class="doctrine-body">SASDF doctrine formally designates air forces as the "shield of the people." Offensive strike operations require direct civilian council authorization — a democratic constraint that frustrates military commanders but maintains the SASDF's moral legitimacy with its population. Strike aircraft are maintained and pilots trained for offensive operations, but publicly the SASDF emphasizes interception and patrol. In practice, classified "deterrence operations" — strikes on NEASDF military infrastructure framed as responses to provocation — are authorized through a parallel chain of command that bypasses the civilian council, a political secret that the Komunidad communes have repeatedly tried to expose.</div>
+    </div>
+
+    <div class="doctrine-block">
+      <div class="doctrine-title"><span class="doctrine-tag dt-se">COALITION PROBLEM</span> The Coordination Burden</div>
+      <div class="doctrine-body">The SASDF's greatest tactical vulnerability is its coalition nature. Anarchist commune air wings refuse to accept real-time tactical control from central command. Reform Socialist units may hesitate on strike missions against NEASDF targets they politically sympathize with. Federal Democrat commanders over-brief operations to satisfy civilian oversight requirements, creating intelligence security risks. The SASDF's solution — the <em>Bukas-Sarado Protocol</em> — designates certain high-tempo operational phases as "closed defense" windows during which central command temporarily overrides coalition autonomy provisions. The communes have never fully accepted the legality of this protocol.</div>
+    </div>
+  </div>
+
+  <div>
+    <div style="font-size:14px;font-weight:700;color:#8b1a1a;margin-bottom:12px;letter-spacing:1px;text-transform:uppercase">NEASDF Doctrine — "Talim" (Edge) Framework</div>
+
+    <div class="doctrine-block">
+      <div class="doctrine-title"><span class="doctrine-tag dt-ne">CORE DOCTRINE</span> Concentrated Offensive Power</div>
+      <div class="doctrine-body">NEASDF doctrine concentrates air power for decisive offensive operations rather than distributing it for resilient defense. The air force is organized around three heavy strike wings capable of simultaneous multi-island assault operations. In theory, this gives the NEASDF the ability to overwhelm any single SASDF island's air defenses through mass. In practice, the Purification Campaign's destruction of experienced middle-rank officers has degraded operational execution significantly — plans are excellent; implementation is frequently poor.</div>
+    </div>
+
+    <div class="doctrine-block">
+      <div class="doctrine-title"><span class="doctrine-tag dt-ne">POLITICAL CONTROL</span> The Commissar System</div>
+      <div class="doctrine-body">Every NEASDF squadron includes a political commissar with authority to countermand tactical orders deemed inconsistent with political objectives. This creates a dual command structure that paralyzes decision-making in fast-moving engagements. Multiple NEASDF defectors have described engagements lost because commissars ordered tactically irrational maneuvers for political signaling reasons. Despite this recognized problem, the Kolektibong Bakal faction cannot remove commissars without undermining its own political control of the military — a structural contradiction that the NEASDF has never resolved.</div>
+    </div>
+
+    <div class="doctrine-block">
+      <div class="doctrine-title"><span class="doctrine-tag dt-ne">COVERT OPERATIONS</span> Anino Bureau Integration</div>
+      <div class="doctrine-body">Unlike the SASDF, the NEASDF fully integrates its covert operations directorate with its air force planning. The Anino Bureau identifies SASDF targets — civilian infrastructure, political leaders, morale-critical symbols — and requests air assets for deniable strike operations. Aircraft used in Anino missions are stripped of national markings, crews use false identities, and communications are routed through Isla Dilim's broadcast infrastructure using coded commercial-band transmissions. The SASDF knows this system exists but has been unable to intercept enough Anino communications to prove it definitively to external observers.</div>
+    </div>
+  </div>
+</div>
+
+<!-- AIRCRAFT -->
+<div class="section" id="sec-aircraft">
+  <div class="sec-header">
+    <div class="sec-header-icon icon-military">⚙</div>
+    <div>
+      <div class="sec-title">AIRCRAFT DEVELOPMENT PROGRAMS</div>
+      <div class="sec-sub">Indigenous Designs, Acquisitions, Secret Projects</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom:20px">
+    <div style="font-size:13px;font-weight:700;color:#1a6b4a;margin-bottom:10px;letter-spacing:1px;text-transform:uppercase">SASDF Fleet & Programs</div>
+    <div class="aircraft-row">
+      <div class="aircraft-id">KF-1 "AGILA"</div>
+      <div>
+        <div class="aircraft-name">Kalagatan Fighter Type 1 "Eagle"</div>
+        <div class="aircraft-desc">The SASDF's indigenous fighter — a light multirole aircraft developed with technical assistance from a Taiwanese aerospace firm. Designed specifically for the archipelago's maritime environment: salt-resistant coatings, extended over-water navigation systems, and a relatively long patrol radius. Performance is below frontline standards but the aircraft is supremely maintainable. Pilots love it for its handling characteristics. The NEASDF calls it the "Agila ng Kalayaan" mockingly, but has lost aircraft to it in every engagement.</div>
+      </div>
+      <div class="aircraft-status as-active">ACTIVE</div>
+    </div>
+    <div class="aircraft-row">
+      <div class="aircraft-id">KF-2 "LAWIN"</div>
+      <div>
+        <div class="aircraft-name">Kalagatan Fighter Type 2 "Falcon"</div>
+        <div class="aircraft-desc">An upgraded Agila with improved avionics and a more powerful engine sourced through Meridian Aerospace Partners. The Lawin program was nearly cancelled three times due to coalition political disputes over procurement funding — Federal Democrats wanted it, Komunidad communes argued the money should go to distributed MANPADS defense systems instead. Currently in service in limited numbers, primarily with Federal Democrat-aligned wings.</div>
+      </div>
+      <div class="aircraft-status as-active">ACTIVE</div>
+    </div>
+    <div class="aircraft-row">
+      <div class="aircraft-id">KA-5 "AGOS"</div>
+      <div>
+        <div class="aircraft-name">Kalagatan Attack Type 5 "Current"</div>
+        <div class="aircraft-desc">A dedicated ground-attack and maritime strike aircraft. Named deliberately after the Agos resistance movement — the SASDF named it to provoke the NEASDF, which considers the Agos its own historical heritage. The KA-5 carries anti-ship missiles adapted from commercial seeker technology, giving the SASDF a credible threat against NEASDF coastal facilities. Two have been lost to NEASDF surface-to-air systems; both crews were recovered at sea.</div>
+      </div>
+      <div class="aircraft-status as-active">ACTIVE</div>
+    </div>
+    <div class="aircraft-row">
+      <div class="aircraft-id">PROJECT ULAP</div>
+      <div>
+        <div class="aircraft-name">"Cloud" — Advanced Multirole Fighter Program</div>
+        <div class="aircraft-desc">The SASDF's classified next-generation fighter program. Believed to incorporate stealth-adjacent design features — not true low-observable technology but significant radar cross-section reduction through airframe shaping. A prototype is rumored to have flown from a remote runway on Isla Dagat in 2005. The program is so politically sensitive that even the Komunidad communes on the coalition council have not been briefed — which is itself a source of significant coalition tension.</div>
+      </div>
+      <div class="aircraft-status as-prototype">PROTOTYPE</div>
+    </div>
+    <div class="aircraft-row">
+      <div class="aircraft-id">KE-1 "MATA"</div>
+      <div>
+        <div class="aircraft-name">Kalagatan Electronic Type 1 "Eye"</div>
+        <div class="aircraft-desc">A converted maritime patrol aircraft modified for signals intelligence and electronic warfare. The KE-1 "Mata" (Eye) is the SASDF's most strategically valuable aircraft — its SIGINT capabilities have disrupted multiple NEASDF operations. Only three exist and their flight schedules are among the most closely guarded secrets in the coalition. The NEASDF has made locating and destroying the Mata aircraft a standing priority mission.</div>
+      </div>
+      <div class="aircraft-status as-active">ACTIVE / CLASSIFIED</div>
+    </div>
+  </div>
+
+  <div>
+    <div style="font-size:13px;font-weight:700;color:#8b1a1a;margin-bottom:10px;letter-spacing:1px;text-transform:uppercase">NEASDF Fleet & Programs</div>
+    <div class="aircraft-row">
+      <div class="aircraft-id">BF-4 "AGILA"</div>
+      <div>
+        <div class="aircraft-name">Bayan Fighter Type 4 — Acquisition: Soviet-era MiG derivatives</div>
+        <div class="aircraft-desc">The NEASDF's primary combat aircraft — Soviet-era fighter derivatives obtained through intermediary networks and locally modified. Mechanically robust but avionics-limited. NEASDF engineers have made significant indigenous modifications: local radar upgrades, adapted missile integration, and reinforced airframes for the humid archipelago environment. The aircraft's performance envelope is well-known to the SASDF, which has developed specific tactics to exploit its radar limitations.</div>
+      </div>
+      <div class="aircraft-status as-active">ACTIVE</div>
+    </div>
+    <div class="aircraft-row">
+      <div class="aircraft-id">BF-7 "KIDLAT"</div>
+      <div>
+        <div class="aircraft-name">Bayan Fighter Type 7 "Lightning" — Indigenous Program</div>
+        <div class="aircraft-desc">The NEASDF's first fully indigenous fighter, developed using Isla Bakal steel and self-sufficiency doctrine. The BF-7 is heavier than its SASDF counterparts and less refined, but the NEASDF's ability to manufacture it entirely within its controlled territory is a significant strategic achievement. The Kidlat program is Benedicto Reyes-Huang's personal prestige project and is frequently cited in NEASDF propaganda as proof of the socialist federation's industrial capacity.</div>
+      </div>
+      <div class="aircraft-status as-active">ACTIVE</div>
+    </div>
+    <div class="aircraft-row">
+      <div class="aircraft-id">BX-2 "DILIM"</div>
+      <div>
+        <div class="aircraft-name">Bayan Strike Type 2 "Darkness" — Anino Bureau Aircraft</div>
+        <div class="aircraft-desc">The aircraft used in Anino Bureau deniable strike missions. Stripped of national markings, fitted with modified engines that alter acoustic signature, and equipped with a specialized electronic emissions control suite designed to minimize radar and signals detection. The SASDF has captured partial wreckage of two BX-2s and has substantially reverse-engineered its capabilities. The NEASDF continues to deny the aircraft's existence at the official level.</div>
+      </div>
+      <div class="aircraft-status as-lost">DENIABLE / 2 LOST</div>
+    </div>
+    <div class="aircraft-row">
+      <div class="aircraft-id">PROJECT BAKAL-X</div>
+      <div>
+        <div class="aircraft-name">"Iron X" — Heavy Strike Bomber Program</div>
+        <div class="aircraft-desc">SASDF intelligence assesses this as the NEASDF's most dangerous classified program — a medium-range bomber designed to strike any SASDF island from Isla Mataas without refueling. If operational, it would fundamentally alter the conflict's strategic balance. The program is believed to be 2-3 years from operational capability. SASDF strategic planners consider disrupting Bakal-X the single highest priority covert operation target in the archipelago.</div>
+      </div>
+      <div class="aircraft-status as-dev">DEVELOPMENT</div>
+    </div>
+  </div>
+</div>
+
+<!-- INCIDENTS -->
+<div class="section" id="sec-incidents">
+  <div class="sec-header">
+    <div class="sec-header-icon icon-ne">⚠</div>
+    <div>
+      <div class="sec-title">MAJOR INCIDENTS & OPERATIONS</div>
+      <div class="sec-sub">Terror Attacks, Military Operations, Cross-Border Events — Click to Expand</div>
+    </div>
+  </div>
+  <div class="toggle-hint">▼ CLICK ANY INCIDENT FOR FULL ACCOUNT</div>
+
+  <div class="incident-card" onclick="toggleItem(this)">
+    <div class="incident-date">MARCH 2001 · OPERATION</div>
+    <div class="incident-title">The Twelve-Day War — The Founding Conflict</div>
+    <div style="margin-bottom:8px"><span class="incident-tag">NE AGGRESSOR</span><span class="incident-tag">SE DEFENDER</span><span class="incident-tag">FOUNDING EVENT</span></div>
+    <div class="incident-body">Triggered by the car bombing of Director Sofía Maglaya-Cruz, the Twelve-Day War established the physical division of the archipelago. The opening 48 hours saw simultaneous Bayanihan Bloc forces seizing control of northern island airfields, locking out Kalayaan-aligned Air Service personnel at gunpoint. The Battle of the Bantay Strait on Day 3-5 was the deadliest engagement — both sides committed every available fighter and both suffered catastrophic losses. NEASDF paratroopers seized Isla Pag-asa briefly before a SASDF counterattack retook it on Day 10. The Chinese-mediated armistice on Day 12 froze the territorial situation. Total aircraft lost: NEASDF ~47, SASDF ~41. Civilian casualties: est. 340 across all islands. Neither side accepted responsibility for starting the war.</div>
+  </div>
+
+  <div class="incident-card" onclick="toggleItem(this)">
+    <div class="incident-date">AUGUST 2004 · TERRORIST INCIDENT</div>
+    <div class="incident-title">The Palengke Bombing — 73 Dead in Lungsod Kalaya Market</div>
+    <div style="margin-bottom:8px"><span class="incident-tag">ANINO BUREAU</span><span class="incident-tag">CIVILIAN TARGET</span><span class="incident-tag">WATERSHED</span></div>
+    <div class="incident-body">Three coordinated bomb detonations destroyed the Palengke Bago market complex in Lungsod Kalaya during peak morning hours. 73 killed, 218 wounded. The devices were placed in fish stall structural columns — identical to construction techniques used in the KDC-era market building, suggesting the bombers had pre-Division access to architectural documentation. The NEASDF formally denied involvement; the Anino Bureau's involvement was confirmed only six years later by defector testimony. The bombing fundamentally reshaped SASDF political culture: the moderate "negotiation faction" in the Federal Democrat bloc collapsed, and the SASDF launched Operation Bagyo — 72 hours of sustained strikes against NEASDF airfields — which destroyed 22 NEASDF aircraft on the ground. The political fallout from Palengke still shapes SASDF policy decisions in 2006.</div>
+  </div>
+
+  <div class="incident-card" onclick="toggleItem(this)">
+    <div class="incident-date">JANUARY 2003 · MASSACRE</div>
+    <div class="incident-title">The Bantay Massacre — 34 Civilians Executed</div>
+    <div style="margin-bottom:8px"><span class="incident-tag">NE SECURITY FORCES</span><span class="incident-tag">CIVILIAN VICTIMS</span><span class="incident-tag">WAR CRIME ALLEGED</span></div>
+    <div class="incident-body">In the NEASDF-controlled northern sector of contested Isla Bantay, security forces under the command of Deputy Commissioner Ernesto Villareal executed 34 civilians identified as suspected SASDF informants. The victims were marched from their homes to a disused KDC warehouse complex and shot. Witnesses who escaped to the SASDF-controlled southern sector provided testimony that has been independently corroborated by multiple human rights investigators. The NEASDF charged the victims posthumously with espionage and declared Villareal a "Hero of the People's Security." The massacre is formally recognized by the SASDF civil administration as a war crime and is the subject of a permanent memorial in Lungsod Kalaya. Attempts to bring the case before international bodies have been blocked by the archipelago's lack of recognized-state status.</div>
+  </div>
+
+  <div class="incident-card" onclick="toggleItem(this)">
+    <div class="incident-date">NOVEMBER 2005 · COVERT STRIKE</div>
+    <div class="incident-title">The Alon Fuel Depot Attack — Unmarked Aircraft Strike</div>
+    <div style="margin-bottom:8px"><span class="incident-tag">DENIABLE OPERATION</span><span class="incident-tag">BX-2 AIRCRAFT</span><span class="incident-tag">7 KILLED</span></div>
+    <div class="incident-body">A nighttime precision strike destroyed 30% of the SASDF's southern fuel reserve on Isla Alon, killing 7 depot workers. The attacking aircraft — unmarked, with modified acoustic signature — was tracked on radar for approximately 40 seconds before it vanished into radar shadow using terrain masking. SASDF aviation analysts reconstructed the attack profile and identified it as consistent with the BX-2 "Dilim" Anino Bureau aircraft. No formal attribution was possible. The NEASDF issued a statement of "concern" for the "apparent accident" at the fuel facility. The SASDF responded with a strike on Isla Gabay's radar infrastructure, which the NEASDF condemned as "unprovoked aggression." International observers noted the absurdity of both positions simultaneously.</div>
+  </div>
+
+  <div class="incident-card" onclick="toggleItem(this)">
+    <div class="incident-date">JUNE 2003 · PROPAGANDA OPERATION</div>
+    <div class="incident-title">Operation Ulap Puti — NEASDF Leaflet Bombing of SASDF Islands</div>
+    <div style="margin-bottom:8px"><span class="incident-tag">PSYCHOLOGICAL OPS</span><span class="incident-tag">ARMISTICE VIOLATION</span></div>
+    <div class="incident-body">Six NEASDF aircraft violated SASDF airspace simultaneously across four islands, dropping 2.4 million propaganda leaflets before withdrawing at high speed before SASDF interceptors could engage. The leaflets portrayed SASDF leaders as KDC oligarchs exploiting workers, depicted the Komunidad communes as secretly controlled by the Kalakalan Bloc, and reproduced forged documents supposedly showing SASDF command accepting bribes from foreign powers. Several of the forgeries were sophisticated enough that SASDF intelligence spent three months definitively establishing them as fabrications. The operation was a partial propaganda success — the forged documents circulated on Isla Bukas and damaged SASDF command's credibility with commune residents for months.</div>
+  </div>
+
+  <div class="incident-card green-border" onclick="toggleItem(this)">
+    <div class="incident-date">APRIL 2004 · SASDF OPERATION</div>
+    <div class="incident-title">Operation Bagyo — SASDF Retaliatory Strike Campaign</div>
+    <div style="margin-bottom:8px"><span class="incident-tag green">SE OFFENSIVE</span><span class="incident-tag green">RESPONSE TO PALENGKE</span></div>
+    <div class="incident-body">The SASDF's largest offensive operation since the Twelve-Day War — 72 hours of sustained airstrikes against NEASDF airfields on Isla Mataas, Isla Gabay, and Isla Bakal. 22 NEASDF aircraft were destroyed on the ground; 6 more were shot down in defensive intercepts. SASDF losses: 4 aircraft, 2 pilots killed, 1 captured. The captured pilot, Flight Lieutenant Rosario Dela Cruz, was paraded on NEASDF state media and charged with terrorism. Her treatment became an international cause — she was eventually returned in a prisoner exchange 18 months later. Operation Bagyo demonstrated the SASDF's offensive capability but also its political costs: the Komunidad communes withdrew from joint operations for 6 months in protest of what they called "escalation without democratic authorization."</div>
+  </div>
+
+  <div class="incident-card" onclick="toggleItem(this)">
+    <div class="incident-date">SEPTEMBER 2002 · INFILTRATION</div>
+    <div class="incident-title">The Kalaya Station Bombing — Attack on SASDF Intelligence HQ</div>
+    <div style="margin-bottom:8px"><span class="incident-tag">ANINO BUREAU</span><span class="incident-tag">INTELLIGENCE WARFARE</span><span class="incident-tag">12 KILLED</span></div>
+    <div class="incident-body">A bomb concealed in a maintenance panel inside the SASDF's primary intelligence analysis facility on Isla Malaya detonated during a morning briefing, killing 12 intelligence analysts and destroying an estimated 18 months of accumulated NEASDF signals intelligence. The bomb had been installed by a cleaner who had worked in the facility for 3 years — an Anino Bureau sleeper agent who had entered SASDF territory before the Division. The attack revealed the depth of NEASDF pre-Division infiltration and triggered a massive SASDF counterintelligence purge that accidentally expelled several loyal personnel alongside genuine agents — a disruption the NEASDF had apparently anticipated and factored into the operation's value calculation.</div>
+  </div>
+</div>
+
+<!-- MYSTERIES -->
+<div class="section" id="sec-mysteries">
+  <div class="sec-header">
+    <div class="sec-header-icon icon-mystery">◈</div>
+    <div>
+      <div class="sec-title">CONSPIRACIES & UNSOLVED MYSTERIES</div>
+      <div class="sec-sub">Classified, Disputed, Unknown — Click to Read</div>
+    </div>
+  </div>
+  <div class="toggle-hint">▼ CLICK ANY ENTRY TO EXPAND FULL DOSSIER</div>
+
+  <div class="mystery-card" onclick="toggleItem(this)">
+    <div class="mystery-label">◈ CONSPIRACY — CLASSIFICATION ALPHA</div>
+    <div class="mystery-title">Who Killed Director Sofía Maglaya-Cruz?</div>
+    <div class="mystery-body">
+      <p>The car bombing that triggered the Twelve-Day War has never been definitively solved. The official SASDF position blames the Bayanihan Bloc's security apparatus. The NEASDF claims it was a Kalayaan Bloc internal operation designed to manufacture a pretext for the Division they planned to initiate anyway.</p>
+      <p>Evidence supporting neither explanation cleanly: The bomb's construction technique matched neither known Bayanihan nor Anino Bureau signatures — it was consistent with a third-party bombmaker. Director Maglaya-Cruz had, according to recovered personal correspondence, been secretly negotiating a compromise power-sharing arrangement with moderate Bayanihan council members. Both radical factions had motive to stop her.</p>
+      <p>A classified SASDF internal investigation completed in 2003 reportedly concluded that the bomb was planted by a Kalayaan Bloc hardliner who feared the compromise deal would prevent the liberal faction from achieving full control — in other words, the SASDF's own founding provocation may have been an inside job. This report, if it exists, has never been officially acknowledged. Three people believed to have read it have died in accidents of varying credibility.</p>
+    </div>
+  </div>
+
+  <div class="mystery-card" onclick="toggleItem(this)">
+    <div class="mystery-label">◈ UNSOLVED — SIGINT ANOMALY</div>
+    <div class="mystery-title">The Ghost Frequency — Unknown NEASDF Transmitter</div>
+    <div class="mystery-body">
+      <p>Since late 2002, SASDF electronic intelligence assets have periodically detected a highly encrypted transmission on a frequency that does not match any known NEASDF communication protocol. The transmission occurs irregularly — sometimes daily, sometimes months apart — and always at night, lasting between 4 and 11 seconds. The signal's characteristics suggest a very high-power directional antenna pointing southeast, toward open ocean rather than toward any NEASDF island.</p>
+      <p>Theories: (1) A coordination signal to an NEASDF-aligned submarine operating south of the archipelago. (2) A communication channel to an external state sponsor — the direction points toward a major regional power's naval operating area. (3) A deliberate deception designed to consume SASDF analytical resources. (4) Communication with an asset inside SASDF territory.</p>
+      <p>The SASDF has not been able to triangulate the transmitter's location. Every attempt to narrow it down has been frustrated by the signal's brevity. The three analysts who have worked this case longest have independently described a sensation of the signal "knowing" when the SASDF is listening — which may indicate detection-evasion software but has also produced unofficial speculation about the transmitter being operated by someone with access to SASDF collection schedules.</p>
+    </div>
+  </div>
+
+  <div class="mystery-card" onclick="toggleItem(this)">
+    <div class="mystery-label">◈ CONSPIRACY — ORIGIN EVENT</div>
+    <div class="mystery-title">The KDC Archives Fire — Deliberate or Accident?</div>
+    <div class="mystery-body">
+      <p>During the Twelve-Day War, an NEASDF bomber attack on Isla Malaya's government quarter struck and destroyed the KDC's central archives building. The official NEASDF position is that the building was a legitimate military target containing command and control infrastructure. The SASDF position is that it was deliberate destruction of irreplaceable historical and legal documentation.</p>
+      <p>What makes this a genuine mystery rather than simple wartime disagreement: several archivists who escaped with partial document collections have described being approached, in the years after the Division, by individuals offering large sums for specific document categories — particularly those related to the original KDC land purchase agreements, the 1940s wartime ownership transfers, and the KDC's internal governance charter amendments from 1978.</p>
+      <p>The 1978 charter amendments are believed — by historians working from secondary sources — to have contained provisions that would significantly affect the legal question of which faction is the legitimate KDC successor. If those amendments explicitly named succession conditions, their destruction may have been the primary purpose of the bombing, with the military infrastructure justification serving as cover. Who wanted that specific information destroyed — and whether it was the NEASDF acting independently or in coordination with an external party — remains unknown.</p>
+    </div>
+  </div>
+
+  <div class="mystery-card" onclick="toggleItem(this)">
+    <div class="mystery-label">◈ INTERNAL — NEASDF POLITICAL</div>
+    <div class="mystery-title">The Reyes-Huang Succession Question</div>
+    <div class="mystery-body">
+      <p>Commander-General Benedicto Reyes-Huang, son of the founding Secretary-General, presents himself as the NEASDF's ideologically pure successor. Defector testimony and signals intelligence have accumulated a contradictory picture: multiple sources suggest that Benedicto has privately expressed beliefs far more pragmatic than his public ideology — that he views the Kolektibong Bakal hardliner ideology as a tool of control rather than a genuine governing philosophy, and that he has considered negotiated settlement proposals that he publicly condemns.</p>
+      <p>If accurate, this suggests the NEASDF's entire aggressive posture may be maintained by a leader who does not privately believe in it — perpetuating the conflict because the hardliner institutional apparatus would destroy him if he moved toward peace, and because the conflict is the primary source of his political legitimacy.</p>
+      <p>A further layer: SASDF intelligence has intercepted what appears to be a communication suggesting that at least one Sky Officer — the professional military faction — may be in quiet contact with Benedicto's personal security staff. Whether this represents a nascent reform faction consolidating around the Commander-General, or a hardliner intelligence operation designed to identify reform sympathizers, is a question that SASDF analysts consider the single most important unanswered question of the conflict.</p>
+    </div>
+  </div>
+
+  <div class="mystery-card" onclick="toggleItem(this)">
+    <div class="mystery-label">◈ CONSPIRACY — EXTERNAL POWERS</div>
+    <div class="mystery-title">The Isla Kahit Accord — What Was Actually Agreed?</div>
+    <div class="mystery-body">
+      <p>The neutral island of Isla Kahit hosts at least three foreign intelligence observation stations under commercial cover. The SASDF acknowledges receiving reconnaissance data from one of these in exchange for port access rights — a classified agreement the Federal Democrat council has never brought to a full coalition vote. The Komunidad communes have demanded disclosure of all Isla Kahit agreements for three years; they have been told classified security concerns prevent it.</p>
+      <p>What the commons don't know, according to Reform Socialist sources within SASDF command: there are believed to be two additional agreements beyond the acknowledged reconnaissance-for-port deal. One reportedly involves a financial arrangement — the SASDF receives a substantial monthly payment in foreign currency whose recipient account is not within normal SASDF financial oversight. The second reportedly involves an agreement to provide early warning of any SASDF approach to a peaceful settlement with the NEASDF — in other words, an external power may hold a veto over SASDF peace negotiations.</p>
+      <p>If this is accurate, the Kalagatan conflict may not be solely a Kalagatan conflict — it may be a proxy war being deliberately maintained by external interests whose strategic calculus depends on the archipelago remaining divided and unstable.</p>
+    </div>
+  </div>
+
+  <div class="mystery-card" onclick="toggleItem(this)">
+    <div class="mystery-label">◈ UNSOLVED — MILITARY</div>
+    <div class="mystery-title">Squadron 9 — The Disappeared NEASDF Wing</div>
+    <div class="mystery-body">
+      <p>In early 2002, SASDF radar operators tracking NEASDF aircraft movements noted the sudden disappearance of an entire NEASDF wing — approximately 18 aircraft — from their regular patrol routes. These aircraft, designated internally as NEASDF Squadron 9, had been observed operating from Isla Mataas for approximately 8 months before vanishing from all observable activity.</p>
+      <p>Squadron 9's aircraft were newer-generation acquisitions, better maintained than typical NEASDF fleet, and their pilots appeared — from behavioral observations and communication patterns — to be the NEASDF's elite. Their disappearance did not correlate with any combat losses, major maintenance event, or political purge.</p>
+      <p>Three possibilities dominate SASDF intelligence analysis: (1) Squadron 9 was rebasesd to a hidden facility — possibly underground — on an island not covered by SASDF radar. (2) The aircraft were transferred to an external state partner and the pilots reassigned. (3) Squadron 9 is the operational core of Project Bakal-X — the heavy bomber program — now operating under extreme operational security. No explanation has been confirmed. Squadron 9's aircraft have never been positively identified again.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DEFECTORS -->
+<div class="section" id="sec-defectors">
+  <div class="sec-header">
+    <div class="sec-header-icon icon-defector">◎</div>
+    <div>
+      <div class="sec-title">DEFECTOR DOSSIERS</div>
+      <div class="sec-sub">Personnel Who Crossed the Line — Click for Full Story</div>
+    </div>
+  </div>
+  <div class="toggle-hint">▼ CLICK ANY DOSSIER TO READ FULL ACCOUNT</div>
+
+  <div class="defector-card" onclick="toggleItem(this)">
+    <div class="defector-header">
+      <div class="defector-avatar av-ne">AB</div>
+      <div>
+        <div class="defector-name">Wing Commander Alipio Bautista</div>
+        <div class="defector-rank">NEASDF 3RD WING / ISLA ANINO BASE · DEFECTED 2003</div>
+      </div>
+      <div class="defector-status status-alive">ALIVE / SASDF PROTECTION</div>
+    </div>
+    <div class="defector-story">
+      <p>Bautista was the NEASDF's most senior defector for three years after the Division — a Wing Commander with 14 years of service and access to operational planning levels. His defection, via a midnight flight in his personal BF-4 to Isla Pag-asa's airfield, was the single most significant intelligence acquisition of the post-Division period.</p>
+      <p>His testimony provided the SASDF with: confirmation of the Anino Bureau's organizational structure and operational methodology; the existence and approximate location of the underground detention facility on Isla Anino; the commissar system's effect on NEASDF operational effectiveness; and significant technical data on NEASDF aircraft capabilities.</p>
+      <p>What drove him: Bautista testified that the final trigger was witnessing a political commissar countermand a successful aerial engagement — ordering his pilots to break off an attack that would have achieved their tactical objective, because the commissar deemed the political timing incorrect. Three of his pilots were subsequently shot down during the enforced retreat. He had privately disagreed with the NEASDF's direction since the Purification Campaign's first executions, but this operational failure caused by ideology over tactics was his breaking point.</p>
+      <div class="quote-block">"I did not leave because I stopped believing in collective governance. I left because I realized they had stopped governing and started performing governance as a theater of control."</div>
+      <p>Current status: Lives under SASDF protection on Isla Malaya. Provides ongoing technical consultation to SASDF air doctrine development. The NEASDF has publicly sentenced him to death in absentia three times.</p>
+    </div>
+  </div>
+
+  <div class="defector-card" onclick="toggleItem(this)">
+    <div class="defector-header">
+      <div class="defector-avatar av-ne">LT</div>
+      <div>
+        <div class="defector-name">Senior Commissar Leticia Tobias-Reyes</div>
+        <div class="defector-rank">NEASDF POLITICAL DIRECTORATE / ISLA MATAAS · DEFECTED 2004</div>
+      </div>
+      <div class="defector-status status-missing">STATUS UNKNOWN</div>
+    </div>
+    <div class="defector-story">
+      <p>Tobias-Reyes was not a pilot but a political commissar — and her defection to the SASDF was the most psychologically complex of the post-Division period. A true believer in socialist ideology who had supported the Bayanihan Bloc since her student years, she defected not because she rejected socialism but because she concluded the NEASDF had betrayed it.</p>
+      <p>Her testimony focused on the NEASDF's internal political economy: the ruling Kolektibong Bakal faction's senior members maintained private luxuries — reserved food supplies, superior housing, access to foreign goods — that contradicted the collective sacrifice they demanded of ordinary citizens. She documented cases where officers' families received better medical care, educational placement, and housing allocation than equivalent workers' families purely based on political rank.</p>
+      <p>"They built a new bourgeoisie," she told SASDF debriefers, "and called it a vanguard."</p>
+      <p>Her disappearance in late 2005 — she failed to return from a routine interview with a SASDF reform journalist — has never been explained. SASDF counterintelligence suspects she was identified and extracted by an NEASDF sleeper network. Others believe she may have returned to the NEASDF voluntarily, disillusioned with what she saw as the SASDF's own class contradictions. The journalist she was interviewing has also not been located.</p>
+    </div>
+  </div>
+
+  <div class="defector-card" onclick="toggleItem(this)">
+    <div class="defector-header">
+      <div class="defector-avatar av-ne">MV</div>
+      <div>
+        <div class="defector-name">Technical Sergeant Mario Villanueva</div>
+        <div class="defector-rank">NEASDF BAKAL-X PROGRAM / GROUND CREW · DEFECTED 2005</div>
+      </div>
+      <div class="defector-status status-alive">ALIVE / SAFE HOUSE</div>
+    </div>
+    <div class="defector-story">
+      <p>Villanueva was not a pilot or an officer — he was a ground crew technician who had worked for two years on the Bakal-X heavy bomber program before managing to escape via a fishing boat to SASDF maritime territory. His value to SASDF intelligence was not ideological testimony but technical knowledge: he could describe the Bakal-X's specifications, development status, manufacturing location, and projected operational timeline in technical detail that no other source had provided.</p>
+      <p>His account: the Bakal-X is further along than SASDF intelligence estimated. As of his defection, two prototype airframes had been completed and at least one had achieved powered taxi testing. The manufacturing facility is located in a repurposed tunnel complex beneath Isla Bakal's ore processing infrastructure. The program had survived multiple SASDF probing operations because the tunnel entrance is disguised as a standard mining access road indistinguishable from hundreds of others on the island.</p>
+      <p>His motivation was personal rather than political: his younger brother had been imprisoned in the Isla Anino detention facility on accusations of listening to foreign radio broadcasts. Villanueva had been told the charges would be dropped if he performed satisfactorily on the Bakal-X program. When he completed his assigned work and the charges were not dropped but extended, he concluded the NEASDF had used him and had no intention of honoring the informal agreement.</p>
+      <p>Current status: His identity is one of the most closely guarded secrets in SASDF intelligence. Disclosure would both endanger him and reveal the extent of SASDF Bakal-X knowledge to the NEASDF, which would trigger program security modifications eliminating his intelligence value.</p>
+    </div>
+  </div>
+
+  <div class="defector-card" onclick="toggleItem(this)">
+    <div class="defector-header">
+      <div class="defector-avatar av-se">RD</div>
+      <div>
+        <div class="defector-name">Flight Lieutenant Rosario Dela Cruz</div>
+        <div class="defector-rank">SASDF 7TH STRIKE WING · CAPTURED 2004 / RETURNED 2005</div>
+      </div>
+      <div class="defector-status status-alive">ALIVE / ACTIVE DUTY</div>
+    </div>
+    <div class="defector-story">
+      <p>Dela Cruz is technically not a defector — she was captured during Operation Bagyo when her KA-5 was hit by a surface-to-air missile over Isla Gabay. She ejected, was recovered by NEASDF forces, and was held for 18 months before being returned in a prisoner exchange brokered through an intermediary.</p>
+      <p>Her captivity and return have made her the most public face of the Kalagatan conflict among SASDF citizens. The NEASDF paraded her on state media, made her read prepared statements condemning the SASDF as capitalist aggressors, and photographed her in NEASDF prison clothes alongside Kolektibong Bakal leadership. The SASDF did not publicly acknowledge her capture for six weeks.</p>
+      <p>What she brought back: During her captivity, she was held with several NEASDF reform political prisoners in a facility on Isla Dilim. The conversations she had with these individuals — conducted in whispers under the noses of guards — gave her a ground-level understanding of NEASDF civilian morale and the reform faction's size and frustration that no intelligence intercept had conveyed. Her debriefing reports are considered some of the most valuable human intelligence in SASDF archives.</p>
+      <p>Current status: Returned to active duty on her own insistence. Currently the SASDF's most experienced KA-5 pilot and the informal leader of a younger cohort of SASDF pilots who came of age politically with her captivity as a formative event. Politically, she has become a bridge figure between Federal Democrats and the Komunidad communes — the communes respect her because she refuses to treat the NEASDF's ordinary citizens as enemies, a view shaped by what she learned during captivity.</p>
+      <div class="quote-block">"The people on that island are not the Kolektibong Bakal. They are people living under it. I learned that while I was supposed to be learning to hate them."</div>
+    </div>
+  </div>
+
+  <div class="defector-card" onclick="toggleItem(this)">
+    <div class="defector-header">
+      <div class="defector-avatar av-se">CG</div>
+      <div>
+        <div class="defector-name">Council Member Cipriano Garcia</div>
+        <div class="defector-rank">SASDF COALITION COUNCIL (KALAKALAN BLOC) · "DEFECTED" TO NEASDF 2002</div>
+      </div>
+      <div class="defector-status status-dead">DECEASED — 2004</div>
+    </div>
+    <div class="defector-story">
+      <p>Garcia occupies a unique and troubling place in Kalagatan history: a SASDF council member from the Kalakalan Bloc (Free Traders) who crossed to the NEASDF in 2002, taking with him significant knowledge of SASDF procurement networks, intelligence source methods, and coalition political tensions.</p>
+      <p>The SASDF publicly described his crossing as abduction. Evidence strongly suggests it was voluntary. Garcia had been under investigation by a SASDF oversight committee for alleged corruption in Meridian Aerospace Partners contract awards — an investigation that, if completed, would have exposed financial arrangements that implicated several senior Kalakalan Bloc figures.</p>
+      <p>His value to the NEASDF was significant but time-limited: the SASDF moved quickly to change procurement procedures and expose source methods he had compromised. Within 14 months, most of Garcia's intelligence value was exhausted.</p>
+      <p>His death in 2004 — officially described by the NEASDF as a "natural cardiac event" — occurred six weeks after the Palengke Bombing. SASDF intelligence analysts have noted, without being able to prove, that the timing suggests Garcia may have had knowledge of the Palengke operation and was eliminated before SASDF interrogation teams could potentially reach him through intermediaries. Whether the NEASDF killed him as a liability or whether he died naturally is unknown. The SASDF's corruption investigation into his Kalakalan Bloc contacts was quietly closed in 2003.</p>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- end content-area -->
+</div><!-- end codex -->
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleItem(el) {
+  el.classList.toggle('open');
+}
+</script>
